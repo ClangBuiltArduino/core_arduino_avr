@@ -5,8 +5,8 @@
 # For more info:
 # https://arduino.github.io/arduino-cli/latest/platform-specification/
 
-name=Arduino AVR Boards
-version=1.8.6
+name=ClangBuiltArduino AVR Boards
+version=1.0.0
 
 # AVR compile variables
 # ---------------------
@@ -18,23 +18,23 @@ compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
 # Default "compiler.path" is correct, change only if you want to override the initial value
-compiler.path={runtime.tools.avr-gcc.path}/bin/
-compiler.c.cmd=avr-gcc
-compiler.c.flags=-c -g -Os {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
-compiler.c.elf.flags={compiler.warning_flags} -Os -g -flto -fuse-linker-plugin -Wl,--gc-sections
-compiler.c.elf.cmd=avr-gcc
-compiler.S.flags=-c -g -x assembler-with-cpp -flto -MMD
-compiler.cpp.cmd=avr-g++
-compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto
-compiler.ar.cmd=avr-gcc-ar
+compiler.path={runtime.tools.cba-llvm.path}/bin/
+compiler.c.cmd=clang-wrapper
+compiler.c.flags=--target=avr -c -g -Os {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
+compiler.c.elf.flags=--target=avr {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -Os -g -flto -fuse-linker-plugin -ffunction-sections -fdata-sections -Wl,--gc-sections -fuse-ld={runtime.tools.cba-avr-bfd.path}/bin/ld.bfd
+compiler.c.elf.cmd=clang++
+compiler.S.flags=--target=avr --sysroot={runtime.tools.cba-avr-sysroot.path} -c -g -x assembler-with-cpp -flto -MMD
+compiler.cpp.cmd=clang++-wrapper
+compiler.cpp.flags=--target=avr -c -g -Os {compiler.warning_flags} --skip-lto=HardwareSerial0.cpp --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fno-rtti -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto
+compiler.ar.cmd=llvm-ar
 compiler.ar.flags=rcs
-compiler.objcopy.cmd=avr-objcopy
+compiler.objcopy.cmd=llvm-objcopy
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 compiler.elf2hex.flags=-O ihex -R .eeprom
-compiler.elf2hex.cmd=avr-objcopy
+compiler.elf2hex.cmd=llvm-objcopy
 compiler.ldflags=
 compiler.libraries.ldflags=
-compiler.size.cmd=avr-size
+compiler.size.cmd=llvm-size
 
 # This can be overridden in boards.txt
 build.extra_flags=
