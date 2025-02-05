@@ -26,8 +26,10 @@ THIS_SCRIPT_NAME=`basename $0`
 rm -f avr-$VERSION.tar.bz2
 
 cd ..
-tar --transform "s|$FOLDERNAME|$FOLDERNAME-$VERSION|g"  --exclude=extras/** --exclude=.git* --exclude=.idea -cjf avr-$VERSION.tar.bz2 $FOLDERNAME
+tar --transform "s|$FOLDERNAME|$FOLDERNAME-$VERSION|g"  --exclude=extras/** --exclude=.git* --exclude=.idea -cjf cba-avr-$VERSION.tar.bz2 $FOLDERNAME
 cd -
 
-mv ../avr-$VERSION.tar.bz2 .
+mv ../cba-avr-$VERSION.tar.bz2 .
+echo "SHA256: $(sha256sum cba-avr-${VERSION}.tar.bz2)"
+echo "size: $(stat -c%s cba-avr-${VERSION}.tar.bz2)"
 
