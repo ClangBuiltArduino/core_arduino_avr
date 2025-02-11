@@ -156,6 +156,6 @@ class HardwareSerial : public Stream
   #define HAVE_HWSERIAL3
 #endif
 
-extern void serialEventRun(void) __attribute__((weak));
+extern void serialEventRun(void);
 
 #endif
