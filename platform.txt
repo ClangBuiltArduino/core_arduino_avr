@@ -20,7 +20,7 @@ compiler.warning_flags.all=-Wall -Wextra
 # Default "compiler.path" is correct, change only if you want to override the initial value
 compiler.path={runtime.tools.cba-llvm.path}/bin/
 compiler.c.cmd=clang-wrapper
-compiler.c.flags=--target=avr -c -g -Os {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
+compiler.c.flags=--target=avr -c -g -Os {compiler.warning_flags} --skip-lto=wiring.c --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
 compiler.c.elf.flags=--target=avr {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -Os -g -flto -fuse-linker-plugin -ffunction-sections -fdata-sections -Wl,--gc-sections -fuse-ld={runtime.tools.cba-avr-bfd.path}/bin/ld.bfd
 compiler.c.elf.cmd=clang++
 compiler.S.flags=--target=avr --sysroot={runtime.tools.cba-avr-sysroot.path} -c -g -x assembler-with-cpp -flto -MMD
