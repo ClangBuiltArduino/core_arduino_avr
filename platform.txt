@@ -19,13 +19,13 @@ compiler.warning_flags.all=-Wall -Wextra
 
 # Default "compiler.path" is correct, change only if you want to override the initial value
 compiler.path={runtime.tools.cba-llvm.path}/bin/
-compiler.c.cmd=clang-wrapper
-compiler.c.flags=--target=avr -c -g -Os {compiler.warning_flags} --skip-lto=wiring.c --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
-compiler.c.elf.flags=--target=avr {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -Os -g -flto -fuse-linker-plugin -ffunction-sections -fdata-sections -Wl,--gc-sections --bfd-dir={runtime.tools.cba-avr-bfd.path} --llvmgold-dir={runtime.tools.cba-llvmgold.path}
+compiler.c.cmd=clang
+compiler.c.flags=--target=avr -c -g -Os {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu11 -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
+compiler.c.elf.flags=--target=avr -mno-relax {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -Os -g -flto -fuse-linker-plugin -ffunction-sections -fdata-sections -Wl,--gc-sections --bfd-dir={runtime.tools.cba-avr-bfd.path} --llvmgold-dir={runtime.tools.cba-llvmgold.path}
 compiler.c.elf.cmd=clang++-wrapper
 compiler.S.flags=--target=avr --sysroot={runtime.tools.cba-avr-sysroot.path} -c -g -x assembler-with-cpp -flto -MMD
-compiler.cpp.cmd=clang++-wrapper
-compiler.cpp.flags=--target=avr -c -g -Os {compiler.warning_flags} --skip-lto=HardwareSerial0.cpp --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fno-rtti -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -MMD -flto
+compiler.cpp.cmd=clang++
+compiler.cpp.flags=--target=avr -c -g -Os {compiler.warning_flags} --sysroot={runtime.tools.cba-avr-sysroot.path} -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fno-rtti -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing -flto -MMD
 compiler.ar.cmd=llvm-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=llvm-objcopy
